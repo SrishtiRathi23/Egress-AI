@@ -129,10 +129,7 @@ body {
 }
 
 .brand-text {
-  background: linear-gradient(120deg, var(--brand-from), var(--brand-to));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--brand);
 }
 
 .card {
@@ -203,9 +200,9 @@ body {
   cursor: not-allowed;
 }
 .btn-primary {
-  background: linear-gradient(120deg, var(--brand-from), var(--brand-to));
+  background: var(--brand);
   border-color: transparent;
-  color: #041019;
+  color: var(--brand-contrast);
 }
 .btn-primary:hover {
   filter: brightness(1.06);
@@ -323,6 +320,73 @@ body {
   flex-direction: column;
   font: inherit;
   color: inherit;
+}
+
+/* Home dashboard -- a clean, solid hero (no gradient mesh) with a single
+   restrained accent rule, for an editorial rather than "AI-generated" look. */
+.home-hero {
+  background: var(--surface);
+  border-top: 3px solid var(--brand);
+}
+.home-grid-3 {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .home-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.home-venue-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 620px) {
+  .home-venue-grid {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+}
+.venue-card {
+  text-align: start;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.15s ease, transform 0.05s ease;
+}
+.venue-card:hover {
+  border-color: var(--brand);
+}
+.venue-card:active {
+  transform: translateY(1px);
+}
+.cap-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--brand) 14%, transparent);
+  color: var(--brand);
+}
+
+.brand-button {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-inline-end: auto;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
 }
 
 @media (prefers-reduced-motion: reduce) {

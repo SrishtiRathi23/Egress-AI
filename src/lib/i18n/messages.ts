@@ -25,6 +25,20 @@ export const LOCALE_META: Record<Locale, LocaleMeta> = {
 
 export type MessageKey =
   | "tagline"
+  | "home"
+  | "heroBody"
+  | "openConsole"
+  | "chooseVenue"
+  | "enterVenue"
+  | "capacity"
+  | "howItWorks"
+  | "capPredict"
+  | "capPredictBody"
+  | "capDecide"
+  | "capDecideBody"
+  | "capExplain"
+  | "capExplainBody"
+  | "groundedIn"
   | "commandTitle"
   | "commandPlaceholder"
   | "analyse"
@@ -65,6 +79,21 @@ export type MessageKey =
 export const MESSAGES: Record<Locale, Record<MessageKey, string>> = {
   en: {
     tagline: "Predictive crowd-egress console",
+    home: "Home",
+    heroBody:
+      "Predict per-gate crush ten minutes out, and divert the crowd before density spikes.",
+    openConsole: "Open the console",
+    chooseVenue: "Choose a venue",
+    enterVenue: "Open console",
+    capacity: "Capacity",
+    howItWorks: "How it works",
+    capPredict: "Predict",
+    capPredictBody: "A queue simulation forecasts density and wait at every gate.",
+    capDecide: "Decide",
+    capDecideBody: "A re-balancer reassigns zones to gates to cut peak density.",
+    capExplain: "Explain",
+    capExplainBody: "Gemini turns plain-language incidents into calm steward orders.",
+    groundedIn: "Grounded in",
     commandTitle: "What's happening on the ground?",
     commandPlaceholder: "e.g. Gate south just closed, 5 minutes to full-time",
     analyse: "Analyse",
@@ -104,6 +133,21 @@ export const MESSAGES: Record<Locale, Record<MessageKey, string>> = {
   },
   es: {
     tagline: "Consola predictiva de evacuación de multitudes",
+    home: "Inicio",
+    heroBody:
+      "Predice el aplastamiento por puerta con diez minutos de antelación y desvía a la multitud antes de que la densidad se dispare.",
+    openConsole: "Abrir la consola",
+    chooseVenue: "Elige un recinto",
+    enterVenue: "Abrir consola",
+    capacity: "Aforo",
+    howItWorks: "Cómo funciona",
+    capPredict: "Predecir",
+    capPredictBody: "Una simulación de colas pronostica densidad y espera en cada puerta.",
+    capDecide: "Decidir",
+    capDecideBody: "Un reequilibrador reasigna zonas a puertas para reducir la densidad máxima.",
+    capExplain: "Explicar",
+    capExplainBody: "Gemini convierte incidentes en lenguaje natural en órdenes claras.",
+    groundedIn: "Basado en",
     commandTitle: "¿Qué está pasando sobre el terreno?",
     commandPlaceholder: "ej. La puerta sur se cerró, 5 minutos para el final",
     analyse: "Analizar",
@@ -143,6 +187,21 @@ export const MESSAGES: Record<Locale, Record<MessageKey, string>> = {
   },
   pt: {
     tagline: "Console preditivo de evacuação de multidões",
+    home: "Início",
+    heroBody:
+      "Preveja o esmagamento por portão dez minutos antes e desvie a multidão antes de a densidade disparar.",
+    openConsole: "Abrir a consola",
+    chooseVenue: "Escolha um recinto",
+    enterVenue: "Abrir consola",
+    capacity: "Lotação",
+    howItWorks: "Como funciona",
+    capPredict: "Prever",
+    capPredictBody: "Uma simulação de filas prevê densidade e espera em cada portão.",
+    capDecide: "Decidir",
+    capDecideBody: "Um reequilibrador realoca zonas a portões para reduzir a densidade máxima.",
+    capExplain: "Explicar",
+    capExplainBody: "O Gemini transforma incidentes em linguagem natural em ordens claras.",
+    groundedIn: "Baseado em",
     commandTitle: "O que está a acontecer no terreno?",
     commandPlaceholder: "ex. O portão sul fechou, 5 minutos para o fim",
     analyse: "Analisar",
@@ -182,6 +241,21 @@ export const MESSAGES: Record<Locale, Record<MessageKey, string>> = {
   },
   fr: {
     tagline: "Console prédictive d'évacuation des foules",
+    home: "Accueil",
+    heroBody:
+      "Anticipez l'écrasement à chaque porte dix minutes à l'avance et déviez la foule avant que la densité ne s'emballe.",
+    openConsole: "Ouvrir la console",
+    chooseVenue: "Choisissez un site",
+    enterVenue: "Ouvrir la console",
+    capacity: "Capacité",
+    howItWorks: "Comment ça marche",
+    capPredict: "Prédire",
+    capPredictBody: "Une simulation de files prévoit la densité et l'attente à chaque porte.",
+    capDecide: "Décider",
+    capDecideBody: "Un rééquilibrage réaffecte les zones aux portes pour réduire la densité maximale.",
+    capExplain: "Expliquer",
+    capExplainBody: "Gemini transforme les incidents en consignes claires pour les stadiers.",
+    groundedIn: "Fondé sur",
     commandTitle: "Que se passe-t-il sur le terrain ?",
     commandPlaceholder: "ex. La porte sud vient de fermer, 5 minutes avant la fin",
     analyse: "Analyser",
@@ -221,6 +295,21 @@ export const MESSAGES: Record<Locale, Record<MessageKey, string>> = {
   },
   ar: {
     tagline: "لوحة تنبؤية لإخلاء الحشود",
+    home: "الرئيسية",
+    heroBody:
+      "توقّع التدافع عند كل بوابة قبل عشر دقائق، وحوّل الحشود قبل أن ترتفع الكثافة.",
+    openConsole: "افتح اللوحة",
+    chooseVenue: "اختر ملعبًا",
+    enterVenue: "افتح اللوحة",
+    capacity: "السعة",
+    howItWorks: "كيف يعمل",
+    capPredict: "التنبؤ",
+    capPredictBody: "محاكاة طوابير تتنبأ بالكثافة وزمن الانتظار عند كل بوابة.",
+    capDecide: "القرار",
+    capDecideBody: "مُوازِن يعيد توزيع المناطق على البوابات لخفض ذروة الكثافة.",
+    capExplain: "التفسير",
+    capExplainBody: "يحوّل Gemini البلاغات اللغوية إلى تعليمات هادئة للمنظمين.",
+    groundedIn: "يستند إلى",
     commandTitle: "ماذا يحدث على أرض الملعب؟",
     commandPlaceholder: "مثال: أُغلقت البوابة الجنوبية، خمس دقائق على النهاية",
     analyse: "تحليل",
@@ -260,6 +349,21 @@ export const MESSAGES: Record<Locale, Record<MessageKey, string>> = {
   },
   hi: {
     tagline: "भीड़ निकासी पूर्वानुमान कंसोल",
+    home: "होम",
+    heroBody:
+      "हर गेट पर भगदड़ का दस मिनट पहले पूर्वानुमान करें, और घनत्व बढ़ने से पहले भीड़ को मोड़ें।",
+    openConsole: "कंसोल खोलें",
+    chooseVenue: "एक स्थल चुनें",
+    enterVenue: "कंसोल खोलें",
+    capacity: "क्षमता",
+    howItWorks: "यह कैसे काम करता है",
+    capPredict: "पूर्वानुमान",
+    capPredictBody: "एक कतार सिमुलेशन हर गेट पर घनत्व और प्रतीक्षा का पूर्वानुमान करता है।",
+    capDecide: "निर्णय",
+    capDecideBody: "एक री-बैलेंसर ज़ोन को गेट पर पुनः आवंटित कर अधिकतम घनत्व घटाता है।",
+    capExplain: "व्याख्या",
+    capExplainBody: "Gemini सामान्य भाषा की घटनाओं को शांत स्टीवर्ड आदेशों में बदलता है।",
+    groundedIn: "आधारित",
     commandTitle: "मैदान पर क्या हो रहा है?",
     commandPlaceholder: "उदा. दक्षिण गेट अभी बंद हुआ, पूर्ण समय में 5 मिनट",
     analyse: "विश्लेषण करें",

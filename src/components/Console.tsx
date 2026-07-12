@@ -9,13 +9,18 @@ import { CommandBar } from "./CommandBar";
 import { ForecastTimeline } from "./ForecastTimeline";
 import { GateCards } from "./GateCards";
 import { GateMap } from "./GateMap";
+import { HomeView } from "./HomeView";
 import { OrdersPanel } from "./OrdersPanel";
 import { StatusStrip } from "./StatusStrip";
 
 interface VenueOption {
   id: string;
   name: string;
+  city: string;
+  capacity: number;
 }
+
+type View = "home" | "console";
 
 interface ConsoleProps {
   initialPlan: PlanResponse;
@@ -29,6 +34,7 @@ interface RunOptions {
 }
 
 export function Console({ initialPlan, initialNetworkId, venues }: ConsoleProps) {
+  const [view, setView] = useState<View>("home");
   const [locale, setLocale] = useState<Locale>("en");
   const [networkId, setNetworkId] = useState(initialNetworkId);
   const [plan, setPlan] = useState(initialPlan);
@@ -102,16 +108,41 @@ export function Console({ initialPlan, initialNetworkId, venues }: ConsoleProps)
     void runPlan(networkId, { incidentText: command || undefined, closedGateIds: next });
   }
 
+  function handleOpenConsole() {
+    setView("console");
+  }
+
+  function handleSelectVenueFromHome(id: string) {
+    setView("console");
+    if (id !== networkId) {
+      handleVenueChange(id);
+    }
+  }
+
+  function handleHome() {
+    setView("home");
+  }
+
   return (
     <div dir={isRtl(locale) ? "rtl" : "ltr"} className="app-shell">
       <AppBar
         locale={locale}
         networkId={networkId}
         venues={venues}
+        showVenue={view === "console"}
+        onHome={handleHome}
         onLocaleChange={handleLocale}
         onVenueChange={handleVenueChange}
       />
 
+      {view === "home" ? (
+        <HomeView
+          locale={locale}
+          venues={venues}
+          onOpenConsole={handleOpenConsole}
+          onSelectVenue={handleSelectVenueFromHome}
+        />
+      ) : (
       <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
         <CommandBar
           locale={locale}
@@ -148,6 +179,7 @@ export function Console({ initialPlan, initialNetworkId, venues }: ConsoleProps)
           <GateCards locale={locale} plan={plan} onToggleGate={handleToggleGate} />
         </div>
       </div>
+      )}
     </div>
   );
 }

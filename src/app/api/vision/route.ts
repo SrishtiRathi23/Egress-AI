@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { estimateDensityAI } from "@/lib/ai/gemini";
 import { VisionRequestSchema } from "@/lib/ai/schemas";
+import { readJsonBody, VISION_MAX_BODY_BYTES } from "@/lib/http";
 import { clientKey, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -10,14 +11,12 @@ export async function POST(request: Request): Promise<Response> {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const body = await readJsonBody(request, VISION_MAX_BODY_BYTES);
+  if (!body.ok) {
+    return NextResponse.json({ error: body.error }, { status: body.status });
   }
 
-  const parsed = VisionRequestSchema.safeParse(body);
+  const parsed = VisionRequestSchema.safeParse(body.data);
   if (!parsed.success) {
     return NextResponse.json(
       { error: "invalid_request", issues: parsed.error.issues },

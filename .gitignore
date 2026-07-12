@@ -25,3 +25,7 @@ next-env.d.ts
 Thumbs.db
 *.log
 npm-debug.log*
+
+# local tooling / agent config (not part of the project)
+/.claude
+/.tools

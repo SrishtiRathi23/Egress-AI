@@ -53,4 +53,22 @@ describe("i18n dictionary", () => {
       expect(RISK_BAND_VAR[band]).toMatch(/^--los-/);
     }
   });
+
+  it("resolves the home-dashboard keys per locale", () => {
+    expect(t("en", "openConsole")).toBe("Open the console");
+    expect(t("fr", "home")).toBe("Accueil");
+    expect(t("hi", "capacity")).toBe("क्षमता");
+  });
+
+  it("gives every locale a non-empty native label", () => {
+    for (const locale of LOCALES) {
+      expect(LOCALE_META[locale].label.length).toBeGreaterThan(0);
+      expect(LOCALE_META[locale].code).toBe(locale);
+    }
+  });
+
+  it("actually translates a shared key across locales", () => {
+    const values = LOCALES.map((locale) => t(locale, "analyse"));
+    expect(new Set(values).size).toBeGreaterThan(1);
+  });
 });

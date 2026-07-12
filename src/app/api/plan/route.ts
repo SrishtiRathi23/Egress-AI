@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { buildPlan } from "@/lib/plan-service";
 import { PlanRequestSchema } from "@/lib/ai/schemas";
+import { readJsonBody } from "@/lib/http";
 import { clientKey, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -10,14 +11,12 @@ export async function POST(request: Request): Promise<Response> {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const body = await readJsonBody(request);
+  if (!body.ok) {
+    return NextResponse.json({ error: body.error }, { status: body.status });
   }
 
-  const parsed = PlanRequestSchema.safeParse(body);
+  const parsed = PlanRequestSchema.safeParse(body.data);
   if (!parsed.success) {
     return NextResponse.json(
       { error: "invalid_request", issues: parsed.error.issues },

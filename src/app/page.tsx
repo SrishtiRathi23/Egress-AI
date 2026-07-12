@@ -1,5 +1,5 @@
 import { Console } from "@/components/Console";
-import { SAMPLE_NETWORKS } from "@/data/venues";
+import { SAMPLE_NETWORKS, VENUE_META } from "@/data/venues";
 import { buildPlan } from "@/lib/plan-service";
 
 // Live, per-request data (and possibly a live Gemini narration), so this page is
@@ -11,7 +11,15 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   const defaultId = SAMPLE_NETWORKS[0]?.id ?? "arlington";
   const initialPlan = await buildPlan(defaultId);
-  const venues = SAMPLE_NETWORKS.map((network) => ({ id: network.id, name: network.name }));
+  const venues = SAMPLE_NETWORKS.map((network) => {
+    const meta = VENUE_META[network.id];
+    return {
+      id: network.id,
+      name: network.name,
+      city: meta?.city ?? "",
+      capacity: meta?.capacity ?? 0,
+    };
+  });
 
   if (initialPlan === null) {
     return (

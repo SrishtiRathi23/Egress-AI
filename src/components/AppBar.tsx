@@ -13,6 +13,8 @@ interface AppBarProps {
   locale: Locale;
   networkId: string;
   venues: VenueOption[];
+  showVenue: boolean;
+  onHome: () => void;
   onLocaleChange: (locale: Locale) => void;
   onVenueChange: (networkId: string) => void;
 }
@@ -39,6 +41,8 @@ export function AppBar({
   locale,
   networkId,
   venues,
+  showVenue,
+  onHome,
   onLocaleChange,
   onVenueChange,
 }: AppBarProps) {
@@ -54,37 +58,36 @@ export function AppBar({
         marginBottom: "1.5rem",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginInlineEnd: "auto" }}>
+      <button type="button" className="brand-button" onClick={onHome} aria-label={t(locale, "home")}>
         <BrandMark />
-        <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.15 }}>
+        <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15, textAlign: "start" }}>
           <span style={{ fontWeight: 800, fontSize: "1.05rem", letterSpacing: "-0.01em" }}>
             Egress<span className="brand-text">AI</span>
           </span>
           <span style={{ fontSize: "0.75rem", color: "var(--text-faint)" }}>
             {t(locale, "tagline")}
           </span>
-        </div>
-      </div>
-
-      <label style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-        <MapPin size={16} aria-hidden="true" color="var(--text-faint)" />
-        <span className="sr-only-label" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
-          {t(locale, "venue")}
         </span>
-        <select
-          className="field"
-          style={{ width: "auto" }}
-          value={networkId}
-          onChange={(event) => onVenueChange(event.target.value)}
-          aria-label={t(locale, "venue")}
-        >
-          {venues.map((venue) => (
-            <option key={venue.id} value={venue.id}>
-              {venue.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      </button>
+
+      {showVenue && (
+        <label style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
+          <MapPin size={16} aria-hidden="true" color="var(--text-faint)" />
+          <select
+            className="field"
+            style={{ width: "auto" }}
+            value={networkId}
+            onChange={(event) => onVenueChange(event.target.value)}
+            aria-label={t(locale, "venue")}
+          >
+            {venues.map((venue) => (
+              <option key={venue.id} value={venue.id}>
+                {venue.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       <label style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
         <Languages size={16} aria-hidden="true" color="var(--text-faint)" />
