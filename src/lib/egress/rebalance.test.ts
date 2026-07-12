@@ -77,6 +77,35 @@ describe("rebalance", () => {
     expect(result.optimised).toEqual(result.baseline);
   });
 
+  it("never routes a zone to a closed gate", () => {
+    const network: EgressNetwork = {
+      id: "rc",
+      name: "rc",
+      zones: [
+        { id: "z1", name: "Z1", occupancy: 4000 },
+        { id: "z2", name: "Z2", occupancy: 4000 },
+      ],
+      gates: [
+        { id: "closed", name: "Closed", lanes: 0, serviceRatePerLane: 50, widthMetres: 14, depthMetres: 9 },
+        { id: "g1", name: "G1", lanes: 10, serviceRatePerLane: 50, widthMetres: 12, depthMetres: 8 },
+        { id: "g2", name: "G2", lanes: 10, serviceRatePerLane: 50, widthMetres: 12, depthMetres: 8 },
+      ],
+      links: [
+        { zoneId: "z1", gateId: "closed", walkMinutes: 1 },
+        { zoneId: "z1", gateId: "g1", walkMinutes: 2 },
+        { zoneId: "z1", gateId: "g2", walkMinutes: 3 },
+        { zoneId: "z2", gateId: "closed", walkMinutes: 1 },
+        { zoneId: "z2", gateId: "g1", walkMinutes: 3 },
+        { zoneId: "z2", gateId: "g2", walkMinutes: 2 },
+      ],
+    };
+    const result = rebalance(network, CONFIG);
+    // The naive baseline sends people to their nearest gate even though it is
+    // closed; the optimiser must route every zone to an open gate instead.
+    expect(Object.values(result.baseline)).toContain("closed");
+    expect(Object.values(result.optimised)).not.toContain("closed");
+  });
+
   it("stays no worse than baseline across many random networks", () => {
     const rng = mulberry32(7);
     for (let trial = 0; trial < 120; trial += 1) {

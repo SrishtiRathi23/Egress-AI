@@ -29,10 +29,17 @@ export const viewport: Viewport = {
   ],
 };
 
+// Applies the saved (or OS-preferred) theme before first paint, so there is no
+// flash and no React state to hydrate for theming.
+const themeScript = `(function(){try{var t=localStorage.getItem('egress-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {children}
+      </body>
     </html>
   );
 }

@@ -6,7 +6,23 @@ import type { Assignment, EgressNetwork, SimConfig } from "./types";
 const MAX_SWEEPS = 64;
 const IMPROVEMENT_EPSILON = 1e-9;
 
-/** Assign every zone to its nearest permitted gate (the naive baseline plan). */
+/** The set of gate ids that are actually open (have at least one lane). */
+function openGateIds(network: EgressNetwork): Set<string> {
+  const open = new Set<string>();
+  for (const gate of network.gates) {
+    if (gate.lanes > 0) {
+      open.add(gate.id);
+    }
+  }
+  return open;
+}
+
+/**
+ * Assign every zone to its nearest permitted gate -- the naive baseline. This is
+ * deliberately "dumb": it routes people to their closest gate even if that gate
+ * is closed, which is exactly the crush the console exists to prevent. The
+ * optimiser (below) is the one that refuses to route to a closed gate.
+ */
 export function nearestGateAssignment(network: EgressNetwork): Assignment {
   const assignment: Assignment = {};
   for (const zone of network.zones) {
@@ -46,6 +62,7 @@ export interface RebalanceResult {
  * gates are saturated.
  */
 export function rebalance(network: EgressNetwork, config: SimConfig): RebalanceResult {
+  const open = openGateIds(network);
   const baseline = nearestGateAssignment(network);
   const baselineResult = simulate(network, baseline, config);
 
@@ -58,7 +75,10 @@ export function rebalance(network: EgressNetwork, config: SimConfig): RebalanceR
     sweeps += 1;
     improved = false;
     for (const zone of network.zones) {
-      const options = network.links.filter((link) => link.zoneId === zone.id);
+      // Only ever move a zone to an OPEN gate; a closed gate is never a target.
+      const options = network.links.filter(
+        (link) => link.zoneId === zone.id && open.has(link.gateId),
+      );
       for (const option of options) {
         if (option.gateId === current[zone.id]) {
           continue;

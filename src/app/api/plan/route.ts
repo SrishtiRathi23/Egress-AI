@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import { DEFAULT_SIM_CONFIG, getNetwork, VENUE_META } from "@/data/venues";
-import { applyEvent, rebalance, simulate, stewardOrders } from "@/lib/egress";
-import type { EgressEvent } from "@/lib/egress";
-import { narrateOrdersAI, parseIncidentAI } from "@/lib/ai/gemini";
-import type { AiSource } from "@/lib/ai/config";
+import { buildPlan } from "@/lib/plan-service";
 import { PlanRequestSchema } from "@/lib/ai/schemas";
 import { clientKey, rateLimit } from "@/lib/rate-limit";
 
@@ -29,47 +25,13 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  const baseNetwork = getNetwork(parsed.data.networkId);
-  if (baseNetwork === undefined) {
+  const plan = await buildPlan(parsed.data.networkId, {
+    incidentText: parsed.data.incidentText,
+    closedGateIds: parsed.data.closedGateIds,
+  });
+  if (plan === null) {
     return NextResponse.json({ error: "unknown_network" }, { status: 404 });
   }
 
-  const config = {
-    horizonMinutes: parsed.data.horizonMinutes ?? DEFAULT_SIM_CONFIG.horizonMinutes,
-    stepMinutes: parsed.data.stepMinutes ?? DEFAULT_SIM_CONFIG.stepMinutes,
-  };
-
-  let network = baseNetwork;
-  let event: EgressEvent | null = null;
-  let eventSource: AiSource | null = null;
-  if (parsed.data.incidentText) {
-    const parsedIncident = await parseIncidentAI(parsed.data.incidentText);
-    event = parsedIncident.event;
-    eventSource = parsedIncident.source;
-    network = applyEvent(network, parsedIncident.event);
-  }
-
-  const plan = rebalance(network, config);
-  const result = simulate(network, plan.optimised, config);
-  const orders = stewardOrders(network, plan.baseline, plan.optimised, result);
-  const narration = await narrateOrdersAI(orders, {
-    venueName: network.name,
-    peakDensity: plan.optimisedPeakDensity,
-    clearanceMinute: result.clearanceMinute,
-  });
-
-  return NextResponse.json({
-    networkId: network.id,
-    venue: { name: network.name, meta: VENUE_META[network.id] ?? null },
-    event,
-    eventSource,
-    baselinePeakDensity: plan.baselinePeakDensity,
-    optimisedPeakDensity: plan.optimisedPeakDensity,
-    clearanceMinute: result.clearanceMinute,
-    orders,
-    narration: narration.text,
-    narrationSource: narration.source,
-    gates: network.gates,
-    steps: result.steps,
-  });
+  return NextResponse.json(plan);
 }

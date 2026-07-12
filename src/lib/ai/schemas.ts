@@ -20,8 +20,7 @@ export const EgressEventSchema = z.discriminatedUnion("type", [
 export const PlanRequestSchema = z.object({
   networkId: z.string().min(1).max(60),
   incidentText: z.string().trim().max(500).optional(),
-  horizonMinutes: z.number().int().positive().max(180).optional(),
-  stepMinutes: z.number().int().positive().max(10).optional(),
+  closedGateIds: z.array(z.string().min(1).max(60)).max(20).optional(),
 });
 
 export const VisionRequestSchema = z.object({
