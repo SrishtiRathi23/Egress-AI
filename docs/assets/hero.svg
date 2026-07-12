@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 260" role="img" aria-label="EgressAI — predictive crowd-egress command console for the FIFA World Cup 2026">
+  <defs>
+    <linearGradient id="hbg" x1="0" y1="0" x2="920" y2="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1220" />
+      <stop offset="1" stop-color="#05070d" />
+    </linearGradient>
+    <linearGradient id="hflow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2dd4ee" />
+      <stop offset="0.55" stop-color="#38bdf8" />
+      <stop offset="1" stop-color="#6366f1" />
+    </linearGradient>
+    <radialGradient id="hgloss" cx="0.2" cy="0" r="0.9">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.12" />
+      <stop offset="0.6" stop-color="#38bdf8" stop-opacity="0" />
+    </radialGradient>
+    <filter id="hsh" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4" flood-color="#020409" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <rect width="920" height="260" rx="22" fill="url(#hbg)" />
+  <rect width="920" height="260" rx="22" fill="url(#hgloss)" />
+  <g opacity="0.12" fill="none" stroke="url(#hflow)" stroke-width="2">
+    <path d="M-20 70 Q470 10 960 84" />
+    <path d="M-20 132 Q470 72 960 146" />
+    <path d="M-20 194 Q470 134 960 208" />
+  </g>
+
+  <g transform="translate(56,74) scale(1.75)" filter="url(#hsh)">
+    <rect x="3" y="3" width="58" height="58" rx="16" fill="#0a1120" />
+    <rect x="3.75" y="3.75" width="56.5" height="56.5" rx="15.25" fill="none" stroke="url(#hflow)" stroke-width="1.1" opacity="0.6" />
+    <rect x="15.5" y="17" width="4.6" height="30" rx="2.3" fill="url(#hflow)" />
+    <rect x="43.9" y="17" width="4.6" height="30" rx="2.3" fill="url(#hflow)" />
+    <g fill="none" stroke="url(#hflow)" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 24 Q31 27.5 39 25.5" stroke-width="2.1" opacity="0.5" />
+      <path d="M21 40 Q31 36.5 39 38.5" stroke-width="2.1" opacity="0.5" />
+      <path d="M22 32 H37" stroke-width="3.6" />
+      <path d="M31.5 26 L40 32 L31.5 38" stroke-width="3.6" />
+    </g>
+  </g>
+
+  <text x="250" y="120" font-family="ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-weight="800" font-size="58" letter-spacing="-1.5" fill="#f4f7fb">Egress<tspan fill="#38bdf8">AI</tspan></text>
+  <text x="252" y="158" font-family="ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" fill="#9fb0c3">Predictive crowd-egress command console — FIFA World Cup 2026</text>
+  <g transform="translate(252,180)">
+    <rect x="0" y="0" width="366" height="30" rx="15" fill="none" stroke="#2b3a4d" />
+    <text x="18" y="20" font-family="ui-sans-serif,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#9fb0c3">PromptWars · Challenge 04 — Smart Stadiums & Operations</text>
+  </g>
+</svg>

@@ -21,18 +21,33 @@ interface AppBarProps {
 
 function BrandMark() {
   return (
-    <svg width="34" height="34" viewBox="0 0 32 32" role="img" aria-label="EgressAI">
+    <svg width="36" height="36" viewBox="0 0 64 64" role="img" aria-label="EgressAI">
       <defs>
-        <linearGradient id="barBrand" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#22d3ee" />
-          <stop offset="1" stopColor="#4f46e5" />
+        <linearGradient id="barBadge" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#141d2f" />
+          <stop offset="1" stopColor="#05070d" />
         </linearGradient>
+        <linearGradient id="barFlow" x1="16" y1="18" x2="50" y2="46" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#2dd4ee" />
+          <stop offset="0.55" stopColor="#38bdf8" />
+          <stop offset="1" stopColor="#6366f1" />
+        </linearGradient>
+        <radialGradient id="barGloss" cx="0.3" cy="0.1" r="0.85">
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.18" />
+          <stop offset="0.55" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
       </defs>
-      <rect x="1.5" y="1.5" width="29" height="29" rx="8" fill="#070b11" />
-      <rect x="1.5" y="1.5" width="29" height="29" rx="8" fill="none" stroke="url(#barBrand)" strokeWidth="1.5" opacity="0.55" />
-      <rect x="7.6" y="8" width="2.6" height="16" rx="1.3" fill="url(#barBrand)" />
-      <rect x="21.8" y="8" width="2.6" height="16" rx="1.3" fill="url(#barBrand)" />
-      <path d="M11 16 H19 M16 12 L20 16 L16 20" fill="none" stroke="url(#barBrand)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="3" y="3" width="58" height="58" rx="16" fill="url(#barBadge)" />
+      <rect x="3" y="3" width="58" height="58" rx="16" fill="url(#barGloss)" />
+      <rect x="3.75" y="3.75" width="56.5" height="56.5" rx="15.25" fill="none" stroke="url(#barFlow)" strokeWidth="1.1" opacity="0.55" />
+      <rect x="15.5" y="17" width="4.6" height="30" rx="2.3" fill="url(#barFlow)" />
+      <rect x="43.9" y="17" width="4.6" height="30" rx="2.3" fill="url(#barFlow)" />
+      <g fill="none" stroke="url(#barFlow)" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 24 Q31 27.5 39 25.5" strokeWidth="2.1" opacity="0.5" />
+        <path d="M21 40 Q31 36.5 39 38.5" strokeWidth="2.1" opacity="0.5" />
+        <path d="M22 32 H37" strokeWidth="3.6" />
+        <path d="M31.5 26 L40 32 L31.5 38" strokeWidth="3.6" />
+      </g>
     </svg>
   );
 }
