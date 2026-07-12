@@ -1,0 +1,10 @@
+# Normalise all text files to LF in the repository so blobs are deterministic
+# across machines regardless of the checkout platform.
+* text=auto eol=lf
+
+# Binary assets are never normalised.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary

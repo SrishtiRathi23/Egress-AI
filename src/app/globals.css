@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   EgressAI design system
+   A calm "command-center" palette: deep slate surfaces, a cyan->indigo brand
+   flow gradient, and dedicated semantic colours for Fruin Level-of-Service risk
+   bands (safe -> comfortable -> restricted -> dangerous -> critical crush).
+   Tokens are declared once as CSS custom properties and overridden for light
+   mode, so every component stays theme-agnostic.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* surfaces */
+  --bg: #070b11;
+  --bg-elevated: #0d141d;
+  --surface: #111a24;
+  --surface-2: #16212e;
+  --border: #22303f;
+  --border-strong: #2f4055;
+
+  /* text */
+  --text: #eef4fb;
+  --text-muted: #9fb0c3;
+  --text-faint: #63758a;
+
+  /* brand flow gradient */
+  --brand-from: #22d3ee;
+  --brand-to: #4f46e5;
+  --brand: #38bdf8;
+  --brand-contrast: #041019;
+
+  /* Level-of-Service risk bands (density-driven) */
+  --los-safe: #22c55e;
+  --los-comfort: #84cc16;
+  --los-moderate: #eab308;
+  --los-restricted: #f59e0b;
+  --los-danger: #ef4444;
+  --los-critical: #b91c1c;
+
+  --ring: color-mix(in oklab, var(--brand) 55%, transparent);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 40px -12px rgba(0, 0, 0, 0.65);
+  --radius: 14px;
+}
+
+/* Follow the OS preference by default, unless the user has explicitly pinned a
+   theme via the data-theme attribute on <html>. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --bg: #f5f8fc;
+    --bg-elevated: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #eef3f9;
+    --border: #dde5ef;
+    --border-strong: #c4d1e0;
+
+    --text: #0d1b2a;
+    --text-muted: #46586c;
+    --text-faint: #7186a0;
+
+    --brand: #0ea5e9;
+    --brand-contrast: #ffffff;
+
+    --shadow: 0 1px 2px rgba(16, 34, 54, 0.06),
+      0 16px 40px -20px rgba(16, 34, 54, 0.28);
+  }
+}
+
+/* Explicit light override wins over the media query when the user toggles. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f8fc;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #eef3f9;
+  --border: #dde5ef;
+  --border-strong: #c4d1e0;
+  --text: #0d1b2a;
+  --text-muted: #46586c;
+  --text-faint: #7186a0;
+  --brand: #0ea5e9;
+  --brand-contrast: #ffffff;
+  --shadow: 0 1px 2px rgba(16, 34, 54, 0.06),
+    0 16px 40px -20px rgba(16, 34, 54, 0.28);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* A quiet animated flow field for the landing backdrop -- pure CSS, no images. */
+.flow-field {
+  background:
+    radial-gradient(
+      60% 55% at 15% 10%,
+      color-mix(in oklab, var(--brand-from) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      55% 50% at 90% 20%,
+      color-mix(in oklab, var(--brand-to) 24%, transparent),
+      transparent 68%
+    ),
+    radial-gradient(
+      70% 60% at 60% 100%,
+      color-mix(in oklab, var(--brand-to) 14%, transparent),
+      transparent 72%
+    );
+}
+
+.brand-text {
+  background: linear-gradient(120deg, var(--brand-from), var(--brand-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card {
+  background: color-mix(in oklab, var(--surface) 86%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Focus visibility is a scored accessibility signal -- keep it loud and global. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--brand) 40%, transparent);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
