@@ -27,15 +27,15 @@ describe("nearestGateAssignment", () => {
 });
 
 describe("rebalance", () => {
-  it("never produces a worse peak density than the baseline", () => {
+  it("never produces a worse peak load than the baseline", () => {
     for (const network of [ARLINGTON, ATLANTA]) {
       const result = rebalance(network, DEFAULT_SIM_CONFIG);
-      expect(result.optimisedPeakDensity).toBeLessThanOrEqual(
-        result.baselinePeakDensity + 1e-9,
+      expect(result.optimisedPeakLoad).toBeLessThanOrEqual(
+        result.baselinePeakLoad + 1e-9,
       );
-      // The reported baseline peak matches an independent simulation.
-      const baselinePeak = simulate(network, result.baseline, DEFAULT_SIM_CONFIG).peakDensity;
-      expect(result.baselinePeakDensity).toBeCloseTo(baselinePeak, 9);
+      // The reported baseline load matches an independent simulation.
+      const baselineLoad = simulate(network, result.baseline, DEFAULT_SIM_CONFIG).peakLoad;
+      expect(result.baselinePeakLoad).toBeCloseTo(baselineLoad, 9);
     }
   });
 
@@ -61,7 +61,7 @@ describe("rebalance", () => {
       ],
     };
     const result = rebalance(network, CONFIG);
-    expect(result.optimisedPeakDensity).toBeLessThan(result.baselinePeakDensity);
+    expect(result.optimisedPeakLoad).toBeLessThan(result.baselinePeakLoad);
   });
 
   it("returns the baseline unchanged when it is already optimal", () => {
@@ -82,8 +82,8 @@ describe("rebalance", () => {
     for (let trial = 0; trial < 120; trial += 1) {
       const network = randomNetwork(rng, `r${trial}`);
       const result = rebalance(network, CONFIG);
-      expect(result.optimisedPeakDensity).toBeLessThanOrEqual(
-        result.baselinePeakDensity + 1e-9,
+      expect(result.optimisedPeakLoad).toBeLessThanOrEqual(
+        result.baselinePeakLoad + 1e-9,
       );
     }
   });

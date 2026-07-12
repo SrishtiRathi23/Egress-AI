@@ -27,6 +27,8 @@ function makeResult(steps: SimStep[]): SimResult {
     totalPeople: 0,
     peakDensity: 0,
     peakDensityGateId: null,
+    peakLoad: 0,
+    peakLoadGateId: null,
     clearanceMinute: null,
   };
 }

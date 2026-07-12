@@ -95,9 +95,16 @@ export interface SimResult {
   assignment: Assignment;
   steps: SimStep[];
   totalPeople: number;
-  /** Highest holding-area density reached at any gate at any step. */
+  /** Highest DISPLAY density (capped at MAX_DISPLAY_DENSITY) at any gate/step. */
   peakDensity: number;
   peakDensityGateId: string | null;
+  /**
+   * Highest UNCAPPED load (backlog / holding area) at any gate/step. This is the
+   * continuous congestion signal the re-balancer minimises -- unlike the capped
+   * display density, it keeps discriminating once gates saturate.
+   */
+  peakLoad: number;
+  peakLoadGateId: string | null;
   /** Minute at which everyone has cleared, or null if not within the horizon. */
   clearanceMinute: number | null;
 }

@@ -1,4 +1,4 @@
-import { areaDensity, levelOfService, riskBand } from "./density";
+import { areaDensity, levelOfService, MAX_DISPLAY_DENSITY, riskBand } from "./density";
 import type {
   Assignment,
   EgressNetwork,
@@ -11,6 +11,13 @@ import type {
 import { ensureFiniteNonNegative, ensurePositive } from "./validate";
 
 const EPSILON = 1e-9;
+
+// A seating zone does not empty instantly at the whistle: people rise, file down
+// the vomitories and reach the concourse over roughly ten minutes. Spreading each
+// zone's release across this window is what makes queue build-up -- and hence
+// density and clear-time -- physically realistic rather than a single impossible
+// lump landing at one gate.
+const RELEASE_WINDOW_MINUTES = 10;
 
 /**
  * One discrete step of a single queue. New arrivals join the existing queue, the
@@ -121,17 +128,25 @@ export function simulate(
     }
     ensureFiniteNonNegative(link.walkMinutes, `walkMinutes for ${zone.id}->${gateId}`);
 
-    const step = arrivalStep(link.walkMinutes, stepMinutes);
-    // People whose walk exceeds the horizon simply never arrive within it.
-    // `step` is in [1, stepCount] here, always a valid index into `arrivals`.
-    if (step <= stepCount) {
-      state.arrivals[step] = state.arrivals[step]! + zone.occupancy;
+    // Stream the zone's occupancy across the release window, starting when the
+    // first walkers reach the gate. Anyone whose slice lands beyond the horizon
+    // simply has not arrived yet within the forecast.
+    const firstStep = arrivalStep(link.walkMinutes, stepMinutes);
+    const releaseSteps = Math.max(1, Math.ceil(RELEASE_WINDOW_MINUTES / stepMinutes));
+    const perStep = zone.occupancy / releaseSteps;
+    for (let offset = 0; offset < releaseSteps; offset += 1) {
+      const step = firstStep + offset;
+      if (step <= stepCount) {
+        state.arrivals[step] = state.arrivals[step]! + perStep;
+      }
     }
   }
 
   const steps: SimStep[] = [];
   let peakDensity = 0;
   let peakDensityGateId: string | null = null;
+  let peakLoad = 0;
+  let peakLoadGateId: string | null = null;
   let clearanceMinute: number | null = null;
   let totalCleared = 0;
 
@@ -150,7 +165,10 @@ export function simulate(
       state.cleared += served;
       totalCleared += served;
 
-      const density = areaDensity(queue, gateArea(gate));
+      // Uncapped load is the true congestion signal; display density is capped at
+      // the physical packing ceiling so the figure shown to operators is real.
+      const load = areaDensity(queue, gateArea(gate));
+      const density = Math.min(load, MAX_DISPLAY_DENSITY);
       const capacityPerMinute = gate.lanes * gate.serviceRatePerLane;
 
       gateSnapshots.push({
@@ -167,6 +185,10 @@ export function simulate(
       if (density > peakDensity) {
         peakDensity = density;
         peakDensityGateId = gate.id;
+      }
+      if (load > peakLoad) {
+        peakLoad = load;
+        peakLoadGateId = gate.id;
       }
     }
 
@@ -185,6 +207,8 @@ export function simulate(
     totalPeople,
     peakDensity,
     peakDensityGateId,
+    peakLoad,
+    peakLoadGateId,
     clearanceMinute,
   };
 }

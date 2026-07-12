@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { mulberry32, randomNetwork } from "@/test/network-factory";
+import { MAX_DISPLAY_DENSITY } from "./density";
 import { nearestGateAssignment } from "./rebalance";
 import {
   estimateClearMinutes,
@@ -115,9 +116,10 @@ describe("simulate", () => {
     });
     const result = simulate(network, assignment, CONFIG);
     expect(result.totalPeople).toBe(1500);
-    // 1500 people at 500/min clears during minute 3.
-    expect(result.clearanceMinute).toBe(3);
-    expect(result.steps.at(-1)?.totalRemaining).toBe(0);
+    // Streamed over the 10-minute release window at 150/min, well under the
+    // 500/min gate capacity, so it clears as it arrives -- at minute 10.
+    expect(result.clearanceMinute).toBe(10);
+    expect(result.steps.at(-1)?.totalRemaining).toBeCloseTo(0, 6);
   });
 
   it("conserves people at every step (cleared + remaining = total)", () => {
@@ -194,6 +196,7 @@ describe("simulate", () => {
           expect(Number.isFinite(snap.queue)).toBe(true);
           expect(Number.isFinite(snap.density)).toBe(true);
           expect(snap.density).toBeGreaterThanOrEqual(0);
+          expect(snap.density).toBeLessThanOrEqual(MAX_DISPLAY_DENSITY + 1e-9);
           expect(snap.cleared).toBeLessThanOrEqual(total + 1e-6);
           const capacity = gateCapacityPerStep(
             network.gates.find((g) => g.id === snap.gateId)!,

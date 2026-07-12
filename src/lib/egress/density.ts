@@ -23,6 +23,16 @@ export type RiskBand =
 /** Persons/m^2 at or above which crush injury becomes a real risk (Fruin LoS F). */
 export const CRUSH_DENSITY = 4;
 
+/**
+ * Physical crowd-compression ceiling used for DISPLAY (persons/m^2). A standing
+ * crowd cannot pack tighter than roughly this before it stops being a fluid; a
+ * larger backlog spills back upstream rather than compressing further. Holding-
+ * area density is therefore reported as saturated at this value instead of a
+ * physically impossible figure. The uncapped "load" is kept separately for the
+ * re-balancer to optimise against.
+ */
+export const MAX_DISPLAY_DENSITY = 8;
+
 /** Crowd density (persons/m^2) for a given headcount over a floor area. */
 export function areaDensity(people: number, areaSquareMetres: number): number {
   ensureFiniteNonNegative(people, "people");

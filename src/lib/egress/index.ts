@@ -13,6 +13,7 @@ export type {
 export type { LevelOfService, RiskBand } from "./density";
 export {
   CRUSH_DENSITY,
+  MAX_DISPLAY_DENSITY,
   areaDensity,
   levelOfService,
   riskBand,

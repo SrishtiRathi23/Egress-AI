@@ -28,10 +28,12 @@ export const ARLINGTON: EgressNetwork = {
     { id: "z-suites", name: "Field Suites", occupancy: 1600 },
   ],
   gates: [
-    { id: "g-north", name: "North Plaza", lanes: 10, serviceRatePerLane: 50, widthMetres: 12, depthMetres: 8, exit: "Plaza" },
-    { id: "g-east", name: "East Concourse", lanes: 8, serviceRatePerLane: 48, widthMetres: 10, depthMetres: 7, exit: "Concourse" },
-    { id: "g-south", name: "South Gate", lanes: 12, serviceRatePerLane: 50, widthMetres: 14, depthMetres: 9, exit: "Transit" },
-    { id: "g-west", name: "West Ramp", lanes: 6, serviceRatePerLane: 45, widthMetres: 8, depthMetres: 6, exit: "Parking" },
+    // widthMetres x depthMetres is the concourse queue footprint feeding the gate,
+    // not the doorway -- that is the area a backing-up crowd actually occupies.
+    { id: "g-north", name: "North Plaza", lanes: 14, serviceRatePerLane: 55, widthMetres: 55, depthMetres: 32, exit: "Plaza" },
+    { id: "g-east", name: "East Concourse", lanes: 10, serviceRatePerLane: 52, widthMetres: 44, depthMetres: 30, exit: "Concourse" },
+    { id: "g-south", name: "South Gate", lanes: 16, serviceRatePerLane: 55, widthMetres: 60, depthMetres: 34, exit: "Transit" },
+    { id: "g-west", name: "West Ramp", lanes: 8, serviceRatePerLane: 50, widthMetres: 36, depthMetres: 26, exit: "Parking" },
   ],
   links: [
     { zoneId: "z-low-n", gateId: "g-north", walkMinutes: 2 },
@@ -65,9 +67,9 @@ export const ATLANTA: EgressNetwork = {
     { id: "z-upper-w", name: "Upper West 335-347", occupancy: 8100 },
   ],
   gates: [
-    { id: "g-a", name: "Gate A Marietta", lanes: 9, serviceRatePerLane: 50, widthMetres: 11, depthMetres: 8, exit: "Rail" },
-    { id: "g-b", name: "Gate B Northside", lanes: 7, serviceRatePerLane: 48, widthMetres: 9, depthMetres: 7, exit: "Street" },
-    { id: "g-c", name: "Gate C Mangum", lanes: 11, serviceRatePerLane: 50, widthMetres: 13, depthMetres: 9, exit: "Plaza" },
+    { id: "g-a", name: "Gate A Marietta", lanes: 13, serviceRatePerLane: 55, widthMetres: 48, depthMetres: 30, exit: "Rail" },
+    { id: "g-b", name: "Gate B Northside", lanes: 9, serviceRatePerLane: 52, widthMetres: 36, depthMetres: 26, exit: "Street" },
+    { id: "g-c", name: "Gate C Mangum", lanes: 15, serviceRatePerLane: 55, widthMetres: 56, depthMetres: 32, exit: "Plaza" },
   ],
   links: [
     { zoneId: "z-field-n", gateId: "g-a", walkMinutes: 2 },
@@ -91,9 +93,9 @@ export const VENUE_META: Record<string, VenueMeta> = {
   atlanta: { id: "atlanta", city: "Atlanta, GA", country: "USA", capacity: 71000 },
 };
 
-/** Default 30-minute forecast at 1-minute resolution. */
+/** Default 60-minute forecast at 1-minute resolution. */
 export const DEFAULT_SIM_CONFIG: SimConfig = {
-  horizonMinutes: 30,
+  horizonMinutes: 60,
   stepMinutes: 1,
 };
 

@@ -38,8 +38,8 @@ describe("sample venues", () => {
   it("are no worse than baseline once re-balanced", () => {
     for (const network of SAMPLE_NETWORKS) {
       const result = rebalance(network, DEFAULT_SIM_CONFIG);
-      expect(result.optimisedPeakDensity).toBeLessThanOrEqual(
-        result.baselinePeakDensity + 1e-9,
+      expect(result.optimisedPeakLoad).toBeLessThanOrEqual(
+        result.baselinePeakLoad + 1e-9,
       );
     }
   });

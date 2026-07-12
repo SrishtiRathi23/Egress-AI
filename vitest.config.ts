@@ -26,6 +26,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      // The real `server-only` guard throws outside a Next server bundle; stub it
+      // for tests so server modules can be imported directly.
+      "server-only": fileURLToPath(new URL("./src/test/empty-module.ts", import.meta.url)),
     },
   },
 });

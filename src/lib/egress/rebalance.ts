@@ -29,21 +29,28 @@ export function nearestGateAssignment(network: EgressNetwork): Assignment {
 export interface RebalanceResult {
   baseline: Assignment;
   optimised: Assignment;
+  /** Uncapped peak load: the objective that is minimised. */
+  baselinePeakLoad: number;
+  optimisedPeakLoad: number;
+  /** Capped display densities for the before/after story. */
   baselinePeakDensity: number;
   optimisedPeakDensity: number;
 }
 
 /**
- * Re-assign zones to gates to minimise peak holding-area density. The search
- * starts from the nearest-gate baseline and only ever accepts a move that
- * strictly reduces the simulated peak density, so the optimised plan is
- * guaranteed to be at least as safe as the baseline -- never worse.
+ * Re-assign zones to gates to minimise the peak gate load. The search starts
+ * from the nearest-gate baseline and only ever accepts a move that strictly
+ * reduces the simulated peak load, so the optimised plan is guaranteed to be at
+ * least as safe as the baseline -- never worse. Load (rather than the capped
+ * display density) is the objective so the search keeps improving even once
+ * gates are saturated.
  */
 export function rebalance(network: EgressNetwork, config: SimConfig): RebalanceResult {
   const baseline = nearestGateAssignment(network);
+  const baselineResult = simulate(network, baseline, config);
+
   let current: Assignment = { ...baseline };
-  let bestPeak = simulate(network, current, config).peakDensity;
-  const baselinePeak = bestPeak;
+  let bestLoad = baselineResult.peakLoad;
 
   let improved = true;
   let sweeps = 0;
@@ -57,20 +64,23 @@ export function rebalance(network: EgressNetwork, config: SimConfig): RebalanceR
           continue;
         }
         const candidate: Assignment = { ...current, [zone.id]: option.gateId };
-        const peak = simulate(network, candidate, config).peakDensity;
-        if (peak < bestPeak - IMPROVEMENT_EPSILON) {
+        const load = simulate(network, candidate, config).peakLoad;
+        if (load < bestLoad - IMPROVEMENT_EPSILON) {
           current = candidate;
-          bestPeak = peak;
+          bestLoad = load;
           improved = true;
         }
       }
     }
   }
 
+  const optimisedResult = simulate(network, current, config);
   return {
     baseline,
     optimised: current,
-    baselinePeakDensity: baselinePeak,
-    optimisedPeakDensity: bestPeak,
+    baselinePeakLoad: baselineResult.peakLoad,
+    optimisedPeakLoad: optimisedResult.peakLoad,
+    baselinePeakDensity: baselineResult.peakDensity,
+    optimisedPeakDensity: optimisedResult.peakDensity,
   };
 }
