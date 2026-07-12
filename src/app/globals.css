@@ -12,24 +12,24 @@
 :root {
   color-scheme: dark;
 
-  /* surfaces */
-  --bg: #070b11;
-  --bg-elevated: #0d141d;
-  --surface: #111a24;
-  --surface-2: #16212e;
-  --border: #22303f;
-  --border-strong: #2f4055;
+  /* surfaces -- true neutral blacks (no blue cast) */
+  --bg: #000000;
+  --bg-elevated: #0b0b0c;
+  --surface: #101011;
+  --surface-2: #18191b;
+  --border: #292a2c;
+  --border-strong: #3b3c3f;
 
-  /* text */
-  --text: #eef4fb;
-  --text-muted: #9fb0c3;
-  --text-faint: #63758a;
+  /* text -- neutral whites/greys */
+  --text: #f4f5f6;
+  --text-muted: #a6a8ac;
+  --text-faint: #6d7075;
 
   /* brand flow gradient */
   --brand-from: #22d3ee;
   --brand-to: #4f46e5;
   --brand: #38bdf8;
-  --brand-contrast: #041019;
+  --brand-contrast: #05060a;
 
   /* Level-of-Service risk bands (density-driven) */
   --los-safe: #22c55e;
@@ -40,51 +40,53 @@
   --los-critical: #b91c1c;
 
   --ring: color-mix(in oklab, var(--brand) 55%, transparent);
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 40px -12px rgba(0, 0, 0, 0.65);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 16px 46px -14px rgba(0, 0, 0, 0.85);
   --radius: 14px;
 }
 
 /* Follow the OS preference by default, unless the user has explicitly pinned a
    theme via the data-theme attribute on <html>. */
+/* Warm, peachy light theme -- a soft cream canvas rather than stark white, for a
+   premium editorial feel. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
 
-    --bg: #f5f8fc;
-    --bg-elevated: #ffffff;
-    --surface: #ffffff;
-    --surface-2: #eef3f9;
-    --border: #dde5ef;
-    --border-strong: #c4d1e0;
+    --bg: #f6ece2;
+    --bg-elevated: #fffdfa;
+    --surface: #fffaf3;
+    --surface-2: #f4e7d9;
+    --border: #e9d9c9;
+    --border-strong: #d7c1ac;
 
-    --text: #0d1b2a;
-    --text-muted: #46586c;
-    --text-faint: #7186a0;
+    --text: #2c2118;
+    --text-muted: #6c5a4b;
+    --text-faint: #9c8776;
 
-    --brand: #0ea5e9;
-    --brand-contrast: #ffffff;
+    --brand: #0e7490;
+    --brand-contrast: #fffaf3;
 
-    --shadow: 0 1px 2px rgba(16, 34, 54, 0.06),
-      0 16px 40px -20px rgba(16, 34, 54, 0.28);
+    --shadow: 0 1px 2px rgba(74, 47, 24, 0.08),
+      0 18px 44px -20px rgba(74, 47, 24, 0.26);
   }
 }
 
 /* Explicit light override wins over the media query when the user toggles. */
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f5f8fc;
-  --bg-elevated: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #eef3f9;
-  --border: #dde5ef;
-  --border-strong: #c4d1e0;
-  --text: #0d1b2a;
-  --text-muted: #46586c;
-  --text-faint: #7186a0;
-  --brand: #0ea5e9;
-  --brand-contrast: #ffffff;
-  --shadow: 0 1px 2px rgba(16, 34, 54, 0.06),
-    0 16px 40px -20px rgba(16, 34, 54, 0.28);
+  --bg: #f6ece2;
+  --bg-elevated: #fffdfa;
+  --surface: #fffaf3;
+  --surface-2: #f4e7d9;
+  --border: #e9d9c9;
+  --border-strong: #d7c1ac;
+  --text: #2c2118;
+  --text-muted: #6c5a4b;
+  --text-faint: #9c8776;
+  --brand: #0e7490;
+  --brand-contrast: #fffaf3;
+  --shadow: 0 1px 2px rgba(74, 47, 24, 0.08),
+    0 18px 44px -20px rgba(74, 47, 24, 0.26);
 }
 
 * {

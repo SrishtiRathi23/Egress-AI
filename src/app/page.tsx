@@ -2,6 +2,10 @@ import { Console } from "@/components/Console";
 import { SAMPLE_NETWORKS } from "@/data/venues";
 import { buildPlan } from "@/lib/plan-service";
 
+// Live, per-request data (and possibly a live Gemini narration), so this page is
+// rendered on demand rather than prerendered at build time.
+export const dynamic = "force-dynamic";
+
 // The first paint is server-rendered from the deterministic engine -- no client
 // fetch on load, which keeps data-fetching out of effects entirely.
 export default async function HomePage() {

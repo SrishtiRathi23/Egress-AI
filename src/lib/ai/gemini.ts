@@ -101,7 +101,8 @@ export async function narrateOrdersAI(
 ): Promise<NarratedPlan> {
   const deterministic = buildBriefing(orders, context);
   const settings = geminiSettings();
-  if (!settings.enabled) {
+  // Nothing to narrate when the plan is already balanced -- skip the model call.
+  if (!settings.enabled || orders.length === 0) {
     return { text: deterministic, source: "fallback" };
   }
   try {
