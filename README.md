@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/assets/hero.svg?v=3" alt="EgressAI — predictive crowd-egress command console for the FIFA World Cup 2026" width="880" />
+<h1>EgressAI</h1>
 
-<br />
+<p><strong>Predictive crowd-egress command console for the FIFA World Cup 2026</strong></p>
 
 ![Tests](https://img.shields.io/badge/tests-121%20passing-2ea44f?style=flat-square)
 ![Engine coverage](https://img.shields.io/badge/engine%20coverage-100%25-2ea44f?style=flat-square)
