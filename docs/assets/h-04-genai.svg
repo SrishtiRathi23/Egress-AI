@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 44" role="img" aria-label="Generative AI, disclosed">
-  <style>.t{font:700 22px ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;fill:#0d1626}.i{stroke:#0e7490}.r{stroke:#d8dee4}@media (prefers-color-scheme:dark){.t{fill:#e6edf3}.i{stroke:#38bdf8}.r{stroke:#2b333c}}</style>
-  <g transform="translate(2,10)" class="i" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 64" role="img" aria-label="Generative AI, disclosed">
+  <style>.t{font:700 32px ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;fill:#0d1626}.i{stroke:#0e7490}.r{stroke:#d8dee4}@media (prefers-color-scheme:dark){.t{fill:#e6edf3}.i{stroke:#38bdf8}.r{stroke:#2b333c}}</style>
+  <g transform="translate(3,15) scale(1.35)" class="i" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="5" y="9" width="14" height="10" rx="2.5" />
     <path d="M12 5 V9" />
     <circle cx="12" cy="4" r="1.1" />
@@ -8,6 +8,6 @@
     <path d="M14.4 13.5 h0.01" />
     <path d="M4 13 v2 M20 13 v2" />
   </g>
-  <text x="40" y="30" class="t">Generative AI, disclosed</text>
-  <line x1="0" y1="43" x2="760" y2="43" class="r" />
+  <text x="52" y="43" class="t">Generative AI, disclosed</text>
+  <line x1="0" y1="63" x2="760" y2="63" class="r" />
 </svg>
