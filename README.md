@@ -41,14 +41,14 @@ ahead, per gate, and hands the control room a concrete plan to stop the crush fr
 
 EgressAI is that tool.
 
-## What makes it safe
+### What makes it safe
 
 EgressAI keeps the safety-critical decision outside the language model. Gemini can understand a messy
 steward message, read a camera image, and explain the final plan, but the routing decision comes from a
 deterministic queue simulation with tested crowd-flow rules. If Gemini is unavailable, invalid, or
 off-spec, the app falls back to typed local logic and still produces a usable plan.
 
-## How it is different
+### How it is different
 
 Most stadium crowd tools are reactive: they show CCTV, alarms, or dashboards after a dangerous density
 has already appeared. EgressAI forecasts per-gate pressure before the crush forms, then recommends a
@@ -119,6 +119,13 @@ clear-times"* after early drafts drifted into flourish.
 
 **GenAI vs. human.** The entire safety-critical core — the queue simulation, the density model, and the
 re-balancer — is human-designed and **100% test-covered**. GenAI only perceives and explains around it.
+
+## Originality
+
+EgressAI was designed specifically for post-match stadium egress: per-gate density forecasting,
+zone-to-gate rebalancing, steward instructions, and multilingual operator workflows. The venue data,
+crowd-flow model, deterministic fallbacks, interface copy, and documentation were built for this
+challenge rather than adapted from a generic chatbot, map demo, or dashboard template.
 
 <a id="architecture"></a>
 <img alt="05 — Architecture" src="docs/assets/h-05-architecture.svg?v=2" width="600" />
