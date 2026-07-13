@@ -2,9 +2,8 @@ import { Console } from "@/components/Console";
 import { SAMPLE_NETWORKS, VENUE_META } from "@/data/venues";
 import { buildPlan } from "@/lib/plan-service";
 
-// Live, per-request data (and possibly a live Gemini narration), so this page is
-// rendered on demand rather than prerendered at build time.
-export const dynamic = "force-dynamic";
+// The home page loads a default deterministic plan with no incident, so it is
+// completely safe to prerender at build time for maximum efficiency (SSG).
 
 // The first paint is server-rendered from the deterministic engine -- no client
 // fetch on load, which keeps data-fetching out of effects entirely.

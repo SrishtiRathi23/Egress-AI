@@ -78,4 +78,4 @@ export const ForecastTimeline = memo(function ForecastTimeline({ locale, plan }:
       </div>
     </section>
   );
-}
+});

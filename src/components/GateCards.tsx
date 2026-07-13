@@ -80,4 +80,4 @@ export const GateCards = memo(function GateCards({ locale, plan, onToggleGate }:
       </div>
     </section>
   );
-}
+});
