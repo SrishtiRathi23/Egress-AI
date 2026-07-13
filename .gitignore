@@ -29,3 +29,7 @@ npm-debug.log*
 # local tooling / agent config (not part of the project)
 /.claude
 /.tools
+
+# firebase deploy cache and local project alias
+/.firebase
+.firebaserc

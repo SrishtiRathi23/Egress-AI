@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/hero.svg" alt="EgressAI — predictive crowd-egress command console for the FIFA World Cup 2026" width="880" />
+<img src="docs/assets/hero.svg?v=3" alt="EgressAI — predictive crowd-egress command console for the FIFA World Cup 2026" width="880" />
 
 <br />
 
@@ -10,6 +10,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square)
 ![Accessibility](https://img.shields.io/badge/WCAG-2.1%20AA-0e7490?style=flat-square)
 ![Languages](https://img.shields.io/badge/languages-6-6366f1?style=flat-square)
+
+### [ Open the live demo ](https://egress-ai.web.app)
 
 **Forecast the crush before it forms. Divert the crowd before it's too late.**
 
@@ -24,7 +26,7 @@ Google × Hack2skill · PromptWars Virtual · **Main Challenge 04 — Smart Stad
 ---
 
 <a id="problem"></a>
-<img alt="01 — The problem" src="docs/assets/h-01-problem.svg" width="600" />
+<img alt="01 — The problem" src="docs/assets/h-01-problem.svg?v=2" width="600" />
 
 The most dangerous minutes of any match are the ones **after** the final whistle. When 40,000 people
 stand up at once and head for the exits, the concourse becomes a fluid — and when that fluid is forced
@@ -38,7 +40,7 @@ ahead, per gate, and hands the control room a concrete plan to stop the crush fr
 EgressAI is that tool.
 
 <a id="how"></a>
-<img alt="02 — How it works" src="docs/assets/h-02-how.svg" width="600" />
+<img alt="02 — How it works" src="docs/assets/h-02-how.svg?v=2" width="600" />
 
 One principle governs the whole system:
 
@@ -60,7 +62,7 @@ API key at all** — the live model is an upgrade, never a dependency. The UI st
 answer honestly: *"Answered by Gemini"* or *"Deterministic engine."*
 
 <a id="science"></a>
-<img alt="03 — The science behind it" src="docs/assets/h-03-science.svg" width="600" />
+<img alt="03 — The science behind it" src="docs/assets/h-03-science.svg?v=2" width="600" />
 
 The engine is a **model**, not a live sensor feed — no public API exposes real-time per-gate density for
 a stadium; that data lives only in an operator's private CCTV and BIM systems. But the model is grounded
@@ -80,7 +82,7 @@ upstream instead. The uncapped "load" is kept internally as the continuous objec
 minimises, so the optimiser keeps improving even once gates are saturated.
 
 <a id="genai"></a>
-<img alt="04 — Generative AI, disclosed" src="docs/assets/h-04-genai.svg" width="600" />
+<img alt="04 — Generative AI, disclosed" src="docs/assets/h-04-genai.svg?v=2" width="600" />
 
 GenAI is central to the product and sits on the operator's critical path. Here is exactly what it does,
 why, and where the human-designed code takes over.
@@ -103,7 +105,7 @@ clear-times"* after early drafts drifted into flourish.
 re-balancer — is human-designed and **100% test-covered**. GenAI only perceives and explains around it.
 
 <a id="architecture"></a>
-<img alt="05 — Architecture" src="docs/assets/h-05-architecture.svg" width="600" />
+<img alt="05 — Architecture" src="docs/assets/h-05-architecture.svg?v=2" width="600" />
 
 ```
 Firebase Hosting (CDN, static frontend)
@@ -122,7 +124,7 @@ server-rendered from the engine, so the first paint needs no client fetch — an
 in event handlers, never in effects. Full detail in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 <a id="quality"></a>
-<img alt="06 — Quality, tested to the core" src="docs/assets/h-06-quality.svg" width="600" />
+<img alt="06 — Quality, tested to the core" src="docs/assets/h-06-quality.svg?v=2" width="600" />
 
 | Signal | Status |
 | --- | --- |
@@ -147,7 +149,7 @@ npm run build        # production build (standalone output for Cloud Run)
 ```
 
 <a id="security"></a>
-<img alt="07 — Security & accessibility" src="docs/assets/h-07-security.svg" width="600" />
+<img alt="07 — Security & accessibility" src="docs/assets/h-07-security.svg?v=2" width="600" />
 
 Security is enforced in code: a strict Content-Security-Policy and the full security-header set on every
 response, Zod validation of **both** requests and AI responses, per-caller rate limiting, request-body
@@ -159,7 +161,7 @@ focus ring, colour is never the only signal, motion respects `prefers-reduced-mo
 with full right-to-left layout. See **[docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md)**.
 
 <a id="languages"></a>
-<img alt="08 — Six languages" src="docs/assets/h-08-languages.svg" width="600" />
+<img alt="08 — Six languages" src="docs/assets/h-08-languages.svg?v=2" width="600" />
 
 The interface ships in six languages spanning FIFA 2026 host regions and travelling fanbases — **English,
 Spanish, Portuguese, French, Arabic (right-to-left), and Hindi.** Fixed UI strings come from a typed,
@@ -167,7 +169,7 @@ unit-tested dictionary (no hallucination); only free-text operator input and the
 Gemini.
 
 <a id="start"></a>
-<img alt="09 — Getting started" src="docs/assets/h-09-start.svg" width="600" />
+<img alt="09 — Getting started" src="docs/assets/h-09-start.svg?v=2" width="600" />
 
 ```bash
 npm install
@@ -182,14 +184,14 @@ Try it: open the console, type **"gate south is closed"**, and watch a red criti
 then dissolve as the re-balancer diverts the flow and the plan is read back to you.
 
 <a id="deploy"></a>
-<img alt="10 — Deployment" src="docs/assets/h-10-deploy.svg" width="600" />
+<img alt="10 — Deployment" src="docs/assets/h-10-deploy.svg?v=2" width="600" />
 
 A single container to **Cloud Run**, fronted by **Firebase Hosting** which rewrites all traffic to the
 service. The `Dockerfile` builds the Next.js standalone output and listens on `$PORT`. Full commands and
 the hard-won gotchas are in **[docs/DEPLOY.md](docs/DEPLOY.md)**.
 
 <a id="structure"></a>
-<img alt="11 — Project structure" src="docs/assets/h-11-structure.svg" width="600" />
+<img alt="11 — Project structure" src="docs/assets/h-11-structure.svg?v=2" width="600" />
 
 ```
 src/
