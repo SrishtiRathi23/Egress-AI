@@ -80,11 +80,7 @@ Every AI call is wrapped so it **never throws** and always has a deterministic f
 
 Automatic platform assessment scores six signals — Code Quality, Security, Efficiency, Testing, Accessibility, Problem-Statement Alignment — and **only the final submission counts**. Tool usage (which tools, why, how prompts evolved, GenAI-vs-human split) must be documented in the README and LinkedIn post.
 
-## 10. Originality & anti-plagiarism
-
-The platform flags duplicate **git blobs** (content-identical files) and confirms by manual review. Therefore: fresh `git init` (no forking), every source file original, distinct scaffold identity, original venue data and copy. EgressAI is a different domain, data model, and codebase from any other entry.
-
-## 11. Phase plan (each phase ends green on all gates)
+## 10. Phase plan (each phase ends green on all gates)
 
 0. **Scaffold & guardrails** ✅ — Next.js 16 + strict TS, CSP, Vitest 100% thresholds on the engine dir, ESLint + jsx-a11y, SVG favicon, theme foundation.
 1. Deterministic egress engine + full test suite.
