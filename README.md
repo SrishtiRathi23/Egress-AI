@@ -120,7 +120,8 @@ clear-times"* after early drafts drifted into flourish.
 **GenAI vs. human.** The entire safety-critical core — the queue simulation, the density model, and the
 re-balancer — is human-designed and **100% test-covered**. GenAI only perceives and explains around it.
 
-## Originality
+<a id="originality"></a>
+<img alt="Originality" src="docs/assets/h-05-originality.svg?v=1" width="600" />
 
 EgressAI was designed specifically for post-match stadium egress: per-gate density forecasting,
 zone-to-gate rebalancing, steward instructions, and multilingual operator workflows. The venue data,

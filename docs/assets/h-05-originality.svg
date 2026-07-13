@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 64" role="img" aria-label="Originality">
+  <style>.t{font:700 32px ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;fill:#0d1626}.i{stroke:#0e7490}.r{stroke:#d8dee4}@media (prefers-color-scheme:dark){.t{fill:#e6edf3}.i{stroke:#38bdf8}.r{stroke:#2b333c}}</style>
+  <g transform="translate(3,15) scale(1.35)" class="i" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3.5 l2.4 5 l5.5 0.8 l-4 3.9 l0.9 5.5 l-4.8 -2.6 l-4.8 2.6 l0.9 -5.5 l-4 -3.9 l5.5 -0.8 Z" />
+  </g>
+  <text x="52" y="43" class="t">Originality</text>
+  <line x1="0" y1="63" x2="760" y2="63" class="r" />
+</svg>
