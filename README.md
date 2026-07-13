@@ -1,9 +1,8 @@
 <div align="center">
 
-<h1>
-  <img src="src/app/icon.svg" alt="EgressAI logo" width="42" />
-  EgressAI
-</h1>
+<img src="src/app/icon.svg" alt="EgressAI logo" width="148" />
+
+<h1>EgressAI</h1>
 
 <p><strong>Predictive crowd-egress command console for the FIFA World Cup 2026</strong></p>
 
