@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { TriangleAlert } from "lucide-react";
 import { isRtl, t, type Locale } from "@/lib/i18n/messages";
 import type { PlanResponse } from "@/lib/plan-types";
@@ -46,7 +46,7 @@ export function Console({ initialPlan, initialNetworkId, venues }: ConsoleProps)
   const [errored, setErrored] = useState(false);
 
   // All data fetching happens in event handlers, never in an effect.
-  async function runPlan(id: string, options: RunOptions) {
+  const runPlan = useCallback(async (id: string, options: RunOptions) => {
     setLoading(true);
     setErrored(false);
     try {
@@ -70,7 +70,7 @@ export function Console({ initialPlan, initialNetworkId, venues }: ConsoleProps)
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   function handleLocale(next: Locale) {
     setLocale(next);
@@ -100,13 +100,13 @@ export function Console({ initialPlan, initialNetworkId, venues }: ConsoleProps)
     void runPlan(networkId, { closedGateIds: [] });
   }
 
-  function handleToggleGate(gateId: string) {
+  const handleToggleGate = useCallback((gateId: string) => {
     const current = closedGateIds.current;
     const next = current.includes(gateId)
       ? current.filter((id) => id !== gateId)
       : [...current, gateId];
     void runPlan(networkId, { incidentText: command || undefined, closedGateIds: next });
-  }
+  }, [networkId, command, runPlan]);
 
   function handleOpenConsole() {
     setView("console");

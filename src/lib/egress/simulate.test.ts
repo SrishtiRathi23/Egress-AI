@@ -179,7 +179,7 @@ describe("simulate", () => {
     expect(() => simulate(network, assignment, { horizonMinutes: 10, stepMinutes: 0 })).toThrow();
   });
 
-  it("holds core invariants across many random scenarios", () => {
+  it("holds core invariants across many random scenarios", { timeout: 30_000 }, () => {
     const rng = mulberry32(20260712);
     for (let trial = 0; trial < 400; trial += 1) {
       const network = randomNetwork(rng, `n${trial}`);

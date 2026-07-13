@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 import { LineChart } from "lucide-react";
 import { CRUSH_DENSITY, MAX_DISPLAY_DENSITY } from "@/lib/egress";
 import { t, type Locale } from "@/lib/i18n/messages";
@@ -15,7 +17,6 @@ const HEIGHT = 220;
 const PAD_X = 44;
 const PAD_Y = 20;
 
-import { memo } from "react";
 
 export const ForecastTimeline = memo(function ForecastTimeline({ locale, plan }: ForecastTimelineProps) {
   const points = plan.timeline;

@@ -63,21 +63,24 @@ export async function buildPlan(
     clearanceMinute: result.clearanceMinute,
   });
 
-  const gates: GateView[] = network.gates.map((gate) => {
-    let peakDensity = 0;
-    let peakQueue = 0;
-    for (const step of result.steps) {
-      const snapshot = step.gates.find((candidate) => candidate.gateId === gate.id);
-      if (snapshot === undefined) {
-        continue;
-      }
-      if (snapshot.density > peakDensity) {
-        peakDensity = snapshot.density;
-      }
-      if (snapshot.queue > peakQueue) {
-        peakQueue = snapshot.queue;
+  // Single-pass aggregation: O(steps × gates) instead of O(gates² × steps).
+  const peakByGate = new Map<string, { density: number; queue: number }>();
+  for (const step of result.steps) {
+    for (const snapshot of step.gates) {
+      const existing = peakByGate.get(snapshot.gateId);
+      if (existing === undefined) {
+        peakByGate.set(snapshot.gateId, { density: snapshot.density, queue: snapshot.queue });
+      } else {
+        if (snapshot.density > existing.density) existing.density = snapshot.density;
+        if (snapshot.queue > existing.queue) existing.queue = snapshot.queue;
       }
     }
+  }
+
+  const gates: GateView[] = network.gates.map((gate) => {
+    const peak = peakByGate.get(gate.id);
+    const peakDensity = peak?.density ?? 0;
+    const peakQueue = peak?.queue ?? 0;
     return {
       id: gate.id,
       name: gate.name,

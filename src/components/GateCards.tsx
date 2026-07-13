@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 import { DoorClosed, DoorOpen } from "lucide-react";
 import { RISK_BAND_KEY, RISK_BAND_VAR, t, type Locale } from "@/lib/i18n/messages";
 import type { GateView, PlanResponse } from "@/lib/plan-types";
@@ -17,7 +19,6 @@ function clearLabel(gate: GateView, locale: Locale): string {
   return `${t(locale, "clearsIn")} ${Math.ceil(gate.worstClearMinutes)} ${t(locale, "min")}`;
 }
 
-import { memo } from "react";
 
 export const GateCards = memo(function GateCards({ locale, plan, onToggleGate }: GateCardsProps) {
   return (
