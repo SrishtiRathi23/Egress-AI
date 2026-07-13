@@ -79,6 +79,9 @@ interface GateState {
   queue: number;
   cleared: number;
   arrivals: number[];
+  capacityPerStep: number;
+  capacityPerMinute: number;
+  area: number;
 }
 
 /**
@@ -102,6 +105,9 @@ export function simulate(
       queue: 0,
       cleared: 0,
       arrivals: new Array<number>(stepCount + 1).fill(0),
+      capacityPerStep: gateCapacityPerStep(gate, stepMinutes),
+      capacityPerMinute: gate.lanes * gate.serviceRatePerLane,
+      area: gateArea(gate),
     });
   }
 
@@ -158,8 +164,7 @@ export function simulate(
       const { gate } = state;
       // `k` is in [1, stepCount], always a valid index into `arrivals`.
       const inbound = state.arrivals[k]!;
-      const capacity = gateCapacityPerStep(gate, stepMinutes);
-      const { served, queue } = stepQueue(state.queue, inbound, capacity);
+      const { served, queue } = stepQueue(state.queue, inbound, state.capacityPerStep);
 
       state.queue = queue;
       state.cleared += served;
@@ -167,9 +172,8 @@ export function simulate(
 
       // Uncapped load is the true congestion signal; display density is capped at
       // the physical packing ceiling so the figure shown to operators is real.
-      const load = areaDensity(queue, gateArea(gate));
+      const load = areaDensity(queue, state.area);
       const density = Math.min(load, MAX_DISPLAY_DENSITY);
-      const capacityPerMinute = gate.lanes * gate.serviceRatePerLane;
 
       gateSnapshots.push({
         gateId: gate.id,
@@ -179,7 +183,7 @@ export function simulate(
         riskBand: riskBand(density),
         served,
         cleared: state.cleared,
-        estimatedClearMinutes: estimateClearMinutes(queue, capacityPerMinute),
+        estimatedClearMinutes: estimateClearMinutes(queue, state.capacityPerMinute),
       });
 
       if (density > peakDensity) {

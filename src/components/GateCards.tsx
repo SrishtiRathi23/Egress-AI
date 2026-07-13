@@ -17,7 +17,9 @@ function clearLabel(gate: GateView, locale: Locale): string {
   return `${t(locale, "clearsIn")} ${Math.ceil(gate.worstClearMinutes)} ${t(locale, "min")}`;
 }
 
-export function GateCards({ locale, plan, onToggleGate }: GateCardsProps) {
+import { memo } from "react";
+
+export const GateCards = memo(function GateCards({ locale, plan, onToggleGate }: GateCardsProps) {
   return (
     <section>
       <h2 style={{ fontSize: "0.95rem", fontWeight: 700, margin: "0 0 0.6rem" }}>

@@ -83,12 +83,14 @@ export function rebalance(network: EgressNetwork, config: SimConfig): RebalanceR
         if (option.gateId === current[zone.id]) {
           continue;
         }
-        const candidate: Assignment = { ...current, [zone.id]: option.gateId };
-        const load = simulate(network, candidate, config).peakLoad;
+        const originalGateId = current[zone.id] as string;
+        current[zone.id] = option.gateId;
+        const load = simulate(network, current, config).peakLoad;
         if (load < bestLoad - IMPROVEMENT_EPSILON) {
-          current = candidate;
           bestLoad = load;
           improved = true;
+        } else {
+          current[zone.id] = originalGateId;
         }
       }
     }

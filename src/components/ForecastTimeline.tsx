@@ -15,7 +15,9 @@ const HEIGHT = 220;
 const PAD_X = 44;
 const PAD_Y = 20;
 
-export function ForecastTimeline({ locale, plan }: ForecastTimelineProps) {
+import { memo } from "react";
+
+export const ForecastTimeline = memo(function ForecastTimeline({ locale, plan }: ForecastTimelineProps) {
   const points = plan.timeline;
   const lastMinute = points.at(-1)?.minute ?? 1;
   const innerW = WIDTH - PAD_X * 2;
